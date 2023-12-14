@@ -4,7 +4,15 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+				mainPink:"#FE81A2",
+			},
+      fontFamily: {
+        alumniSans: ['Alumni Sans', 'sans-serif'],
+        bebasNeue : ['Bebas Neue', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
 }

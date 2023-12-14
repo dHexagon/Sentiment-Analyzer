@@ -1,10 +1,8 @@
-import Footer from "../components/footer";
-
+import Header from "../components/header";
 
 const Landing = () => {
-    return ( <div className="flex justify-center align-middle">
-        <p className="text-3xl font-bold">Hello World!</p>
-        <Footer/>
+    return ( <div>
+        <Header/>
     </div> );
 }
  
