@@ -13,6 +13,7 @@ module.exports = {
         bebasNeue : ['Bebas Neue', 'sans-serif'],
         lato: ['Lato', 'sans-serif'],
         josefinSans: ['Josefin Sans', 'sans-serif'],
+        ubuntu: ['Ubuntu', 'sans-serif'],
       },
     },
   },
