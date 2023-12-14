@@ -1,9 +1,13 @@
-import Header from "../components/header";
+import Frame1 from "../components/landing/frame1";
 
 const Landing = () => {
-    return ( <div>
-        <Header/>
-    </div> );
-}
- 
+  return (
+   <>
+    <Frame1/>
+    
+   
+   </>
+  );
+};
+
 export default Landing;

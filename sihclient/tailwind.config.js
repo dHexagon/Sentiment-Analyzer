@@ -11,6 +11,8 @@ module.exports = {
       fontFamily: {
         alumniSans: ['Alumni Sans', 'sans-serif'],
         bebasNeue : ['Bebas Neue', 'sans-serif'],
+        lato: ['Lato', 'sans-serif'],
+        josefinSans: ['Josefin Sans', 'sans-serif'],
       },
     },
   },
