@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import { Landing, Notfound, Login, Signup, Options} from "../pages";
+import { Landing, Notfound, Login, Signup, Options } from "../pages";
 
 const router = createBrowserRouter([
   { path: "/", element: <Landing /> },
