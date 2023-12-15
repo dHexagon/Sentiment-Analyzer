@@ -1,4 +1,3 @@
-import Footer from "../footer";
 import MainFooter from "../mainFooter";
 
 const Frame2 = () => {
@@ -64,7 +63,6 @@ const Frame2 = () => {
           </button>
         </div>
         <MainFooter />
-        <Footer/>
       </div>
     </div>
   );
