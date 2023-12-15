@@ -1,4 +1,4 @@
-import MainFooter from "../mainFooter";
+import MainFooter from "../common/mainFooter";
 
 const Frame2 = () => {
   return (

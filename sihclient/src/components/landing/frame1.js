@@ -1,4 +1,4 @@
-import Header from "../header";
+import Header from "../common/header";
 
 const frame1 = () => {
   return (

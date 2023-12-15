@@ -1,6 +1,4 @@
-import Footer from "../../components/footer";
-import Frame1 from "../../components/landing/frame1";
-import Frame2 from "../../components/landing/frame2";
+import { Footer, Frame1, Frame2 } from "../../components/common";
 
 const Landing = () => {
   return (
