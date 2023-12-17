@@ -1,4 +1,4 @@
-import {SideBar, HeaderMenu, TopThree, ResponseGraph, Inputs} from "./../../components"
+import { TopThree, ResponseGraph, Inputs} from "./../../components"
 
 const AdminDashboard = () => {
     return ( <div className="h-full w-full flex flex-col justify-around items-center">

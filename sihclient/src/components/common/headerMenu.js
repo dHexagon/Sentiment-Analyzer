@@ -1,7 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import { Menu } from "../../utils";
 import { useState } from "react";
 
 const HeaderMenu = () => {
+  const navigate = useNavigate();
   const [level, setLevel] = useState(0);
   const [active, setActive] = useState(0);
 
@@ -18,6 +20,9 @@ const HeaderMenu = () => {
                   ? "bg-mainPink"
                   : "text-[#515151] border border-mainPink"
               } w-[80%] h-1/2`}
+              onClick={()=>{
+                navigate(item.action);
+              }}
             >
               {item.name}
             </button>

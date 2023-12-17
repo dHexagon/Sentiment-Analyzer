@@ -1,10 +1,12 @@
 import { Menu } from "../../utils";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SideBar = () => {
+  const navigate = useNavigate();
   const [level, setLevel] = useState(0);
   const [expanded, setExpanded] = useState(true);
-  const [selected, setSelected]=useState(-1);
+  const [selected, setSelected] = useState(-1);
 
   return (
     <div
@@ -107,7 +109,11 @@ const SideBar = () => {
                 >
                   <div className={`h-[90%] w-[90%] flex flex-col justify-center items-center rounded-md shadow-[4px_4px_8px_0px_rgba(0,0,0,0.25)] ${(selected===item.key)?'bg-black':''} cursor-pointer`} onMouseEnter={()=>{
                       setSelected(item.key)
-                  }} onMouseLeave={()=>{setSelected(-1)}}>
+                  }} onMouseLeave={()=>{setSelected(-1)}}
+                  onClick={()=>{
+                    navigate(item.action);
+                  }}
+                  >
                     <img src={item.icon} alt={item.name} />
                     <p className={`${(selected===item.key)?'':'hidden'} text-[#FB9BA4] font-josefinSans font-normal`}>{item.name}</p>
                   </div>

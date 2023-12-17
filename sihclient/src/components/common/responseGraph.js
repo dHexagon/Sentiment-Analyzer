@@ -2,7 +2,7 @@ import { PieChart } from 'react-minimal-pie-chart';
 import { useState } from 'react';
 
 const ResponseGraph = () => {   
-    const [values, setValuses]=useState([34,33,33]);
+    const [values, setValues]=useState([34,33,33]);
 
     //35 of screen, 40 of 80
     return (   

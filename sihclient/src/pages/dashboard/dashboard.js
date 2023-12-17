@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { SideBar, HeaderMenu, AdminDashboard} from "../../components";
+import { SideBar, HeaderMenu, AdminDashboard, EmployeeDashboard} from "../../components";
 const Dashboard = () => {
-    const [level, setLevel] = useState(0);
+    const [level, setLevel] = useState(1);
     return (  <div>
         <div className="flex h-screen w-screen justify-around items-center bg-[url('../public/assets/landing/frame2/frame2Bg.webp')]  bg-repeat overflow-x-hidden">
                    <div className="bg-white/[0.90] min-h-screen h-full w-full">
@@ -22,7 +22,12 @@ const Dashboard = () => {
                                </div>
                                 
                                 
-                                ):(null)}
+                                ):(
+                                    <div className="h-[80%] w-full">
+                                        <EmployeeDashboard/>
+                                    </div>
+
+                                )}
                            </div>
                        </div>
                    </div>
