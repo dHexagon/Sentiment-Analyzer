@@ -16,7 +16,7 @@ const SideBar = () => {
     >
       <div className="h-[95%] w-[95%] rounded-md shadow-[4px_4px_8px_0px_rgba(0,0,0,0.25)] flex flex-col justify-around items-center relative bg-white">
         <div
-          className={`h-14 w-14 absolute top-2 flex items-center justify-center  ${
+          className={`h-14 w-14 absolute top-2 flex items-center justify-center cursor-pointer ${
             expanded === true ? "left-2" : "self-center"
           } `}
         >

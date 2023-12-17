@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom";
+
 const Header = () => {
   return (
-    <div className="h-20 flex justify-between absolute w-screen">
+    <div className="h-20 flex justify-between absolute w-screen z-[1]">
       <div className="w-[15vw] flex justify-evenly">
         <div className="w-10 flex flex-col justify-center">
           <img src="/assets/main/dHexagon.svg" alt="Logo" />
@@ -11,7 +13,7 @@ const Header = () => {
       </div>
       <div className="w-[40vw] flex justify-evenly">
         <span className="text-2xl font-bebasNeue font-normal flex flex-col justify-center">
-          HOME
+          <Link to="/">HOME</Link>
         </span>
         <span className="text-2xl font-bebasNeue font-normal flex flex-col justify-center">
           ABOUT US
@@ -20,7 +22,7 @@ const Header = () => {
           CONTACT
         </span>
         <span className="text-2xl font-bebasNeue font-normal flex flex-col justify-center">
-          LOGIN
+        <Link to="/options">LOGIN</Link>
         </span>
       </div>
     </div>
