@@ -1,4 +1,4 @@
-import { Frame1, Frame2 } from "../../components";
+import { Footer, Frame1, Frame2 } from "../../components";
 
 const Landing = () => {
   return (
