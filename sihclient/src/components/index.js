@@ -5,3 +5,7 @@ export {default as MainFooter} from "./common/mainFooter";
 export {default as Header} from "./common/header";
 export {default as SideBar} from "./common/sidebar";
 export {default as HeaderMenu} from "./common/headerMenu";
+export {default as TopThree} from "./dashboard/topThree";
+export {default as ResponseGraph} from "./common/responseGraph";
+export {default as Inputs} from "./dashboard/inputs";
+export {default as AdminDashboard} from "./dashboard/adminDashboard";

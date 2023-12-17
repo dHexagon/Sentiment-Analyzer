@@ -4,7 +4,7 @@ import { useState } from "react";
 const SideBar = () => {
   const [level, setLevel] = useState(0);
   const [expanded, setExpanded] = useState(true);
-  const [selected, setSelected]=useState(0);
+  const [selected, setSelected]=useState(-1);
 
   return (
     <div
@@ -12,7 +12,7 @@ const SideBar = () => {
         expanded === true ? "w-1/4" : "w-[10%]"
       } flex flex-col items-center justify-center transition-all duration-200 `}
     >
-      <div className="h-[95%] w-[95%] rounded-md shadow-[4px_4px_8px_0px_rgba(0,0,0,0.25)] flex flex-col justify-around items-center relative">
+      <div className="h-[95%] w-[95%] rounded-md shadow-[4px_4px_8px_0px_rgba(0,0,0,0.25)] flex flex-col justify-around items-center relative bg-white">
         <div
           className={`h-14 w-14 absolute top-2 flex items-center justify-center  ${
             expanded === true ? "left-2" : "self-center"

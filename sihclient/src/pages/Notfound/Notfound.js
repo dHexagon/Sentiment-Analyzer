@@ -1,11 +1,7 @@
-import { SideBar, HeaderMenu } from "../../components";
-
 const Notfound = () => {
   return (
     <div className="h-screen w-full flex justify-around items-center">
-      <SideBar />
-      <div className="h-full w-full flex flex-col justify-around items-center">
-        <HeaderMenu/>
+      
       <div className="h-[80%] w-4/5 flex flex-col justify-around items-center">
         <img
           src="/assets/notFound/notfound.svg"
@@ -26,7 +22,6 @@ const Notfound = () => {
         </div>
       </div>
       </div>
-    </div>
   );
 };
 
