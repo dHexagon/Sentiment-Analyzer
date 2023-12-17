@@ -1,6 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import Header from "../common/header";
 
-const frame1 = () => {
+const Frame1 = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="h-screen bg-[#D9D9D9] bg-[url('../public/assets/landing/frame1/frame1Bg.webp')] bg-cover bg-center bg-no-repeat overflow-x-hidden">
       <div className=" h-screen  bg-gradient-to-b from-[#FFF] from-0% via-[#fff]/0 via-40.1% to-[#FFF] to-90%">
@@ -21,7 +24,9 @@ const frame1 = () => {
               <button className=" w-2/5 rounded-xl bg-mainPink h-14">
                 Get Started
               </button>
-              <button className="w-2/5 rounded-xl border-mainPink border-4 h-14">
+              <button className="w-2/5 rounded-xl border-mainPink border-4 h-14" onClick={()=>{
+                navigate('/login')
+              }}>
                 Login
               </button>
             </div>
@@ -39,4 +44,4 @@ const frame1 = () => {
   );
 };
 
-export default frame1;
+export default Frame1;

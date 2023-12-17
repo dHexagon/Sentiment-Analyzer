@@ -7,7 +7,7 @@ const Menu = [
   {
     name: "Dashboard",
     action: "/dashboard",
-    key: "dashboard",
+    key: 0,
     toolTip: "Dashboard",
     level: 1,
     icon: dashboardIcon,
@@ -15,7 +15,7 @@ const Menu = [
   {
     name: "Employees",
     action: "/employees",
-    key: "employees",
+    key: 1,
     toolTip: "Employees",
     level: 0,
     icon: employeesIcon,
@@ -23,7 +23,7 @@ const Menu = [
   {
     name: "Call History",
     action: "/history",
-    key: "callHistory",
+    key: 2,
     toolTip: "callHistory",
     level: 1,
     icon: historyIcon,
@@ -31,7 +31,7 @@ const Menu = [
   {
     name: "Settings",
     action: "/settings",
-    key: "settings",
+    key: 3,
     toolTip: "settings",
     level: 1,
     icon: settingsIcon,

@@ -4,3 +4,4 @@ export {default as Footer} from "./common/footer";
 export {default as MainFooter} from "./common/mainFooter";
 export {default as Header} from "./common/header";
 export {default as SideBar} from "./common/sidebar";
+export {default as HeaderMenu} from "./common/headerMenu";
