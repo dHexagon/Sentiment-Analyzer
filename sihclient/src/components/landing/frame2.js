@@ -2,7 +2,7 @@ import MainFooter from "../common/mainFooter";
 
 const Frame2 = () => {
   return (
-    <div className=" min-h-screen w-full relative flex flex-col justify-center items-center bg-[url('../public/assets/landing/frame2/frame2Bg.webp')]  bg-repeat overflow-x-hidden">
+    <div className="min-h-screen w-full relative flex flex-col justify-center items-center bg-[url('../public/assets/landing/frame2/frame2Bg.webp')]  bg-repeat overflow-x-hidden">
       <div className="bg-white/[0.90] min-h-screen h-full w-full">
         <div className="h-screen flex flex-col justify-evenly items-center bg-gradient-to-b from-white to-transparent to-[10%]">
           <div className="h-4/5 w-4/5 text-center flex flex-col justify-around">

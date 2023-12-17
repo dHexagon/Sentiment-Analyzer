@@ -4,6 +4,7 @@ import { useState } from "react";
 const SideBar = () => {
   const [level, setLevel] = useState(0);
   const [expanded, setExpanded] = useState(true);
+  const [selected, setSelected]=useState(0);
 
   return (
     <div
@@ -90,10 +91,10 @@ const SideBar = () => {
             Quick menu
           </span>
           <div
-            className={`flex h-[85%] ${
+            className={`flex ${
               expanded === true
-                ? "flex-wrap justify-start"
-                : "flex-col justify-center items-center"
+                ? "flex-wrap justify-start h-[85%]"
+                : "flex-col justify-center items-center h-full"
             }`}
           >
             {Menu.map((item) =>
@@ -104,8 +105,11 @@ const SideBar = () => {
                   } flex flex-col justify-center items-center`}
                   key={item.key}
                 >
-                  <div className="h-[90%] w-[90%] flex flex-col justify-center items-center rounded-md shadow-[4px_4px_8px_0px_rgba(0,0,0,0.25)]">
+                  <div className={`h-[90%] w-[90%] flex flex-col justify-center items-center rounded-md shadow-[4px_4px_8px_0px_rgba(0,0,0,0.25)] ${(selected===item.key)?'bg-black':''} cursor-pointer`} onMouseEnter={()=>{
+                      setSelected(item.key)
+                  }} onMouseLeave={()=>{setSelected(-1)}}>
                     <img src={item.icon} alt={item.name} />
+                    <p className={`${(selected===item.key)?'':'hidden'} text-[#FB9BA4] font-josefinSans font-normal`}>{item.name}</p>
                   </div>
                 </div>
               ) : null

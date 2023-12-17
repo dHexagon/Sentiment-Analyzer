@@ -2,7 +2,7 @@ import { Menu } from "../../utils";
 import { useState } from "react";
 
 const HeaderMenu = () => {
-  const [level, setLevel] = useState(1);
+  const [level, setLevel] = useState(0);
   const [active, setActive] = useState(0);
 
   return (

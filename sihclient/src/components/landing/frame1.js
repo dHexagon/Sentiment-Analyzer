@@ -24,7 +24,7 @@ const Frame1 = () => {
               <button className=" w-2/5 rounded-xl bg-mainPink h-14">
                 Get Started
               </button>
-              <button className="w-2/5 rounded-xl border-mainPink border-4 h-14" onClick={()=>{
+              <button className="w-2/5 rounded-xl border-mainPink border-2 h-14" onClick={()=>{
                 navigate('/login')
               }}>
                 Login
