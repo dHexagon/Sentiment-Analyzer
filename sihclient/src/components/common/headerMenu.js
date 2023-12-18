@@ -1,11 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import { Menu } from "../../utils";
 import { useState } from "react";
+import { useLevelContext } from "../../utils/context";
 
 const HeaderMenu = () => {
   const navigate = useNavigate();
-  const [level, setLevel] = useState(0);
+  const {level, setLevel} = useLevelContext();
   const [active, setActive] = useState(0);
+
+  
 
   return (
     <div className="h-[10%] w-[80%] flex justify-around">
