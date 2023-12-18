@@ -13,7 +13,7 @@ const Options = () => {
               className="h-1/3"
             />
             <div>
-              <div className="font-josefinSans text-3xl font-medium">
+              <div className="font-josefinSans text-3xl font-semibold">
                 Login as Admin
               </div>
               <div className="font-lato text-center italic">
@@ -28,7 +28,7 @@ const Options = () => {
               className="h-1/3"
             />
             <div>
-              <div className="font-josefinSans text-3xl font-medium">
+              <div className="font-josefinSans text-3xl font-semibold">
                 Login as Employee
               </div>
               <div className="font-lato text-center italic">

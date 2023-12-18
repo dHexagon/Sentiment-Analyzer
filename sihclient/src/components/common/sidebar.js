@@ -111,7 +111,9 @@ const SideBar = () => {
                       setSelected(item.key)
                   }} onMouseLeave={()=>{setSelected(-1)}}
                   onClick={()=>{
-                    navigate(item.action);
+                    if(item.action!=='/settings'){
+                      navigate(item.action);
+                    }
                   }}
                   >
                     <img src={item.icon} alt={item.name} />

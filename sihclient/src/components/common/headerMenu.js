@@ -21,7 +21,9 @@ const HeaderMenu = () => {
                   : "text-[#515151] border border-mainPink"
               } w-[80%] h-1/2`}
               onClick={()=>{
-                navigate(item.action);
+                if(item.action!=='/settings'){
+                  navigate(item.action);
+                }
               }}
             >
               {item.name}
