@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import Header from "../common/header";
 
-const Frame1 = () => {
+const Frame1 = ({scrollDown}) => {
   const navigate = useNavigate();
+
 
   return (
     <div className="h-screen bg-[#D9D9D9] bg-[url('../public/assets/landing/frame1/frame1Bg.webp')] bg-cover bg-center bg-no-repeat overflow-x-hidden">
@@ -21,7 +22,9 @@ const Frame1 = () => {
               amet diam volutpat diam. Lacus pharetra lacus non.
             </span>
             <div className="flex justify-around items-center font-josefinSans font-bold text-2xl w-[90%] h-14 ">
-              <button className=" w-2/5 rounded-xl bg-mainPink h-14">
+              <button className=" w-2/5 rounded-xl bg-mainPink h-14" onClick={()=>{
+                scrollDown();
+              }}>
                 Get Started
               </button>
               <button className="w-2/5 rounded-xl border-mainPink border-2 h-14" onClick={()=>{
