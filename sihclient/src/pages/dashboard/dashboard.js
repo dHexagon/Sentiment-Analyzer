@@ -1,9 +1,7 @@
-import { useState, useContext } from "react";
 import { SideBar, HeaderMenu, AdminDashboard, EmployeeDashboard} from "../../components";
 import { useLevelContext } from "../../utils/context";
 const Dashboard = () => {
     const {level, setLevel} = useLevelContext();
-    console.log(level)
     return (  <div>
         <div className="flex h-screen w-screen justify-around items-center bg-[url('../public/assets/landing/frame2/frame2Bg.webp')]  bg-repeat overflow-x-hidden">
                    <div className="bg-white/[0.90] min-h-screen h-full w-full">
