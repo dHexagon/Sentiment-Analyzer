@@ -5,3 +5,6 @@ export { default as Signup } from "./signup/signup";
 export {default as DashBoard} from "./dashboard/dashboard";
 export { default as EmployeeList } from "./employees/employees";
 export { default as CallHistoryList } from "./callHistory/callHistory";
+export { default as CallDetails } from "./callDetails/callDetails";
+export { default as IssuePage } from "./issuePage/issuePage";
+
