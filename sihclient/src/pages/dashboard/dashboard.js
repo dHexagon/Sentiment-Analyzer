@@ -12,16 +12,15 @@ import { useLevelContext } from "../../utils/context";
 const Dashboard = () => {
   const navigate = useNavigate();
   const { level, setLevel } = useLevelContext();
-
   const [adminUn, setAdminUn] = useState("Admin");
   const [employeeUn, setEmployeeUn] = useState("Employee");
-
   const [toPass, setToPass] = useState("username");
   const [responseArray, setResponseArray] = useState([32, 36, 32]);
-  const [starValue, setStarValue] = useState(3.5);
-  const [nCalls, setNCalls] = useState(0);
-  const [nEmployees, setNEmployees] = useState(0);
+  const [starValue, setStarValue] = useState(0);
+  const [nCalls, setNCalls] = useState(-1);
+  const [nEmployees, setNEmployees] = useState(-1);
   const [top3, setTop3] = useState([]);
+  const [totalCalls, setTotalCalls]=useState(-1);
 
   useEffect(() => {
     //not logged in
@@ -135,6 +134,7 @@ const Dashboard = () => {
             //won't come here
           } else {
             setNCalls(res.data.employee_calls_count);
+            setTotalCalls(res.data.employee_total_call_count);
           }
         })
         .catch((err) => {
@@ -151,7 +151,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      <div className="flex h-screen w-screen justify-around items-center bg-[url('../public/assets/landing/frame2/frame2Bg.webp')]  bg-repeat overflow-x-hidden">
+      <div className="flex h-screen w-screen justify-around items-center bg-[url('../public/assets/landing/frame2/frame2Bg.webp')]  bg-repeat overflow-x-hidden ">
         <div className="bg-white/[0.90] min-h-screen h-full w-full">
           <div className="h-screen w-full flex justify-around items-center bg-[url('../public/assets/main/dashBg.png')] bg-no-repeat p-5">
             <SideBar
@@ -159,6 +159,7 @@ const Dashboard = () => {
                 username: toPass,
                 numberCalls: nCalls,
                 numberEmp: nEmployees,
+                totalCalls: totalCalls
               }}
             />
             <div className="flex flex-col w-[100%] h-[100%] justify-around items-center">

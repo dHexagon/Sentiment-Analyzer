@@ -7,13 +7,14 @@ import { useNavigate } from "react-router-dom";
 const CallHistoryList = () => {
   const navigate = useNavigate();
   const { level, setLevel } = useLevelContext();
-
   const [toPass, setToPass] = useState("username");
   const [adminUn, setAdminUn] = useState("Admin");
   const [employeeUn, setEmployeeUn] = useState("Employee");
+  const [nCalls, setNCalls] = useState(-1);
+  const [nEmployees, setNEmployees] = useState(-1);
+  const [totalCalls, setTotalCalls] = useState(-1);
 
-  const [nCalls, setNCalls] = useState(0);
-  const [nEmployees, setNEmployees] = useState(0);
+  const [callList, setCallList] = useState([]);
 
   useEffect(() => {
     if (level === -1) {
@@ -46,6 +47,22 @@ const CallHistoryList = () => {
         .catch((err) => {
           console.log("Oops an error occurred! ", err);
         });
+      axios
+        .get("/admin/callhistory", { withCredentials: true })
+        .then((res) => {
+          const callArray = [];
+          for (let i = 0; i < res.data.all_calls.length; i++) {
+            const object = { employee: "", duration: "", rating: "" };
+            object.employee = res.data.all_calls[i].employeename;
+            object.duration = res.data.employee_calls.length[i].duration;
+            object.rating = res.data.employee_calls.length[i].rating;
+            callArray.append(object);
+          }
+          setCallList(callArray);
+        })
+        .catch((err) => {
+          console.log("Oops an error occurred! ", err);
+        });
     } else if (level === 1) {
       axios
         .get("/employee/profile", { withCredentials: true })
@@ -68,6 +85,16 @@ const CallHistoryList = () => {
             //won't come here
           } else {
             setNCalls(res.data.employee_calls_count);
+            const callArray = [];
+            for (let i = 0; i < res.data.employee_calls.length; i++) {
+              const object = { employee: "", duration: "", rating: "" };
+              object.employee = res.data.employee_calls[i].employeename;
+              object.duration = res.data.employee_calls[i].duration;
+              object.rating = res.data.employee_calls[i].rating;
+              callArray.append(object);
+            }
+            setCallList(callArray);
+            setTotalCalls(res.data.employee_total_call_count);
           }
         })
         .catch((err) => {
@@ -91,11 +118,12 @@ const CallHistoryList = () => {
               username: toPass,
               numberCalls: nCalls,
               numberEmp: nEmployees,
+              totalCalls: totalCalls,
             }}
           />
           <div className="flex flex-col w-[100%] h-[100%] justify-around items-center">
             <HeaderMenu />
-            <CallHistory />
+            <CallHistory details={{ calls: callList }} />
           </div>
         </div>
       </div>

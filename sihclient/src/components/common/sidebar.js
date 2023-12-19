@@ -10,11 +10,13 @@ const SideBar = ({details}) => {
   const { level, setLevel } = useLevelContext()
   const[nCalls, setNCalls]=useState(0);
   const[nEmployees, setNEmployees]=useState(0);
+  const [totalCalls, setTotalCalls]=useState(0);
 
   useEffect(()=>{
     setNCalls(details.numberCalls);
     setNEmployees(details.numberEmp)
-  },[details.numberCalls, details.numberEmp])
+    setTotalCalls(details.totalCalls)
+  },[details.numberCalls, details.numberEmp,details.totalCalls])
 
   return (
     <div
@@ -65,7 +67,7 @@ const SideBar = ({details}) => {
           {level === 0 ? (
             <div className="flex flex-col">
               <span className="text-xl font-josefinSans font-normal text-[#515151] ">
-                Employees in:
+                Total employees:
               </span>
               <span className="text-4xl font-josefinSans font-semibold mt-2">
                 {nEmployees} 
@@ -74,10 +76,10 @@ const SideBar = ({details}) => {
           ) : (
             <div className="flex flex-col">
               <span className="text-xl font-josefinSans font-normal text-[#515151] ">
-                Time in:
+                Total Calls:
               </span>
               <span className="text-4xl font-josefinSans  font-semibold mt-2">
-                69
+                {totalCalls}
               </span>
             </div>
           )}
