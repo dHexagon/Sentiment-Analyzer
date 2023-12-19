@@ -13,13 +13,12 @@ const CallHistoryList = () => {
   const [nCalls, setNCalls] = useState(-1);
   const [nEmployees, setNEmployees] = useState(-1);
   const [totalCalls, setTotalCalls] = useState(-1);
-
   const [callList, setCallList] = useState([]);
 
   useEffect(() => {
-    if (level === -1) {
-      // navigate('/login',{replace:true});
-    } else if (level === 0) {
+    //admin
+    if (level === 0) {
+      //username
       axios
         .get("/admin/profile", { withCredentials: true })
         .then((res) => {
@@ -28,12 +27,14 @@ const CallHistoryList = () => {
           } else {
             setLevel(0);
             setAdminUn(res.data.username);
+            setToPass(res.data.username)
             setEmployeeUn("");
           }
         })
         .catch((err) => {
-          console.log("Oops an error occurred! ", err);
+          console.log("Error fetching admin profile ", err.message, err);
         });
+      //number of calls, and number of employees sidebar
       axios
         .get("/admin/dashboard", { withCredentials: true })
         .then((res) => {
@@ -45,8 +46,9 @@ const CallHistoryList = () => {
           }
         })
         .catch((err) => {
-          console.log("Oops an error occurred! ", err);
+          console.log("Error fetching admin dashboard items ", err.message, err);
         });
+      //call history list
       axios
         .get("/admin/callhistory", { withCredentials: true })
         .then((res) => {
@@ -54,16 +56,20 @@ const CallHistoryList = () => {
           for (let i = 0; i < res.data.all_calls.length; i++) {
             const object = { employee: "", duration: "", rating: "" };
             object.employee = res.data.all_calls[i].employeename;
-            object.duration = res.data.employee_calls.length[i].duration;
-            object.rating = res.data.employee_calls.length[i].rating;
-            callArray.append(object);
+            object.duration = res.data.all_calls[i].duration;
+            object.rating = res.data.all_calls[i].rating;
+            callArray.push(object);
           }
           setCallList(callArray);
         })
         .catch((err) => {
-          console.log("Oops an error occurred! ", err);
+          console.log("Error fetching call history (admin) ", err.message, err);
         });
-    } else if (level === 1) {
+    }
+
+    //employee
+    else if (level === 1) {
+      //username
       axios
         .get("/employee/profile", { withCredentials: true })
         .then((res) => {
@@ -73,11 +79,13 @@ const CallHistoryList = () => {
             setLevel(1);
             setAdminUn(res.data.admin);
             setEmployeeUn(res.data.username);
+            setToPass(res.data.username)
           }
         })
         .catch((err) => {
-          console.log("Oops an error occurred! ", err);
+          console.log("Error fetching employee profile ", err.message, err);
         });
+      //calls today and total calls for sidebar and calls history list
       axios
         .get("/employee/employee_calls", { withCredentials: true })
         .then((res) => {
@@ -91,22 +99,23 @@ const CallHistoryList = () => {
               object.employee = res.data.employee_calls[i].employeename;
               object.duration = res.data.employee_calls[i].duration;
               object.rating = res.data.employee_calls[i].rating;
-              callArray.append(object);
+              callArray.push(object);
             }
             setCallList(callArray);
             setTotalCalls(res.data.employee_total_call_count);
           }
         })
         .catch((err) => {
-          console.log("Oopns an error occurred! ", err);
+          console.log("Error fetching employee calls ", err.message, err);
         });
     }
 
-    if (level === 0) {
-      setToPass(adminUn);
-    } else {
-      setToPass(employeeUn);
+    //not logged in or invalid level
+    else {
+      setLevel(-1);
+      navigate("/login", { replace: true });
     }
+
   }, []);
 
   return (

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Modal from '@mui/material/Modal';
+import axios from "axios";
 
 const Inputs = () => {
     const [selected, setSelected] = useState(-1);
@@ -11,9 +12,21 @@ const Inputs = () => {
     const handleOpen2 = () => setOpen2(true);
     const handleClose2 = () => setOpen2(false);
 
-    const style = {
+    const [empName, setEmpName]=useState('');
+    const [empPwd, setEmpPwd]=useState('');
 
-    };
+
+    const addEmployee=(e)=>{
+        e.preventDefault();
+        axios.post("/admin/add_employee",{username: empName, password: empPwd},{withCredentials:true}).then((res)=>{
+            if(res.data.message==="Employee addedd successfully"){
+                console.log("Employee addedd successfully!");
+                handleClose1();
+            }
+        }).catch((err)=>{
+            console.log("Error while assing employee! ", err.message, err);
+        })
+    }
 
     //35 of screen, 40 of 80
     return (<div className="h-full w-full flex flex-col items-center">
@@ -53,6 +66,9 @@ const Inputs = () => {
                     <input
                         type="text"
                         className="w-full h-[75px] rounded border-[3px] border-solid border-mainPink cursor-text transition-all duration-300 focus:outline-none focus:border-b-3 focus:border-b-mainPink focus:border-l-0 focus:border-r-0 focus:border-t-0"
+                        onChange={(e)=>{
+                            setEmpName(e.target.value);
+                        }}
                     />
                     <br />
                     <br />
@@ -62,9 +78,14 @@ const Inputs = () => {
                     <input
                         type="password"
                         className="w-full h-[75px] rounded border-[3px] border-solid border-mainPink cursor-text transition-all duration-300 focus:outline-none focus:border-b-3 focus:border-b-mainPink focus:border-l-0 focus:border-r-0 focus:border-t-0"
+                        onChange={(e)=>{
+                            setEmpPwd(e.target.value);
+                        }}
                     />
                 </form>
-                <button className="text-black text-3xl font-bold font-josefinSans justify-center items-center gap-2.5 pt-4 pb-2.5 px-[83px] rounded-[8px] bg-mainPink mt-8 cursor-pointer hover:bg-[#18072B] hover:text-white transition-all duration-200">
+                <button className="text-black text-3xl font-bold font-josefinSans justify-center items-center gap-2.5 pt-4 pb-2.5 px-[83px] rounded-[8px] bg-mainPink mt-8 cursor-pointer hover:bg-[#18072B] hover:text-white transition-all duration-200" onClick={(e)=>{
+                    addEmployee(e);
+                }}>
                 Add
               </button>
             </div>
@@ -92,7 +113,6 @@ const Inputs = () => {
                     <input
                         type="file"
                         accept=".wav"
-                        // className="w-full h-[75px] rounded border-[3px] border-solid border-mainPink cursor-text transition-all duration-300 focus:outline-none focus:border-b-3 focus:border-b-mainPink focus:border-l-0 focus:border-r-0 focus:border-t-0"
                         className=" mt-2 block w-full text-xl text-black
                         file:mr-4 file:py-2 file:px-4
                         file:rounded-full file:border-0

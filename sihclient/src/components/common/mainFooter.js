@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
 const MainFooter = () => {
+  const navigate = useNavigate();
   return (
     <div className="h-96 flex justify-around items-center">
       <div className="h-4/5 w-1/5 flex flex-col justify-around">
@@ -21,7 +24,9 @@ const MainFooter = () => {
         <div className="h-full w-1/5 flex flex-col justify-around items-center">
           <span className="text-3xl font-alumniSans font-700 w-full">Help</span>
           <div className="w-full h-3/5 flex flex-col font-ubuntu font-normal">
-            <span>Signup/Login</span>
+            <span onClick={()=>{
+              navigate('/login');
+            }} className="cursor-pointer underline">Signup/Login</span>
             <span>Privacy Center</span>
             <span>Support</span>
             <span>Developer</span>

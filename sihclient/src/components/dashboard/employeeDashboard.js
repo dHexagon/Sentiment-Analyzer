@@ -9,7 +9,7 @@ const EmployeeDashboard = ({ details }) => {
   useEffect(() => {
     setResponseArray(details.array);
     setStarValue(details.rating);
-  }, []);
+  }, [details.array, details.rating]);
 
   return (
     <div className="h-full w-full flex flex-col items-center">

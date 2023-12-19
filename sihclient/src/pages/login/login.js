@@ -7,7 +7,7 @@ import axios from "axios";
 const Login = () => {
   const navigate = useNavigate();
 
-  const { level, setLevel } = useLevelContext();
+  const { setLevel } = useLevelContext();
 
   const [displayoptions, setDisplayOptions] = useState(true);
   const [adminLogin, setLoginAdmin] = useState(null);
@@ -19,7 +19,7 @@ const Login = () => {
 
   useEffect(() => {
     axios
-      .get("/admin/profile", { withCredentials: true })
+      .get("/admin/admin_profile", { withCredentials: true })
       .then((res) => {
         if (res.data.message === "Not logged in") {
           setLevel(-1);
@@ -29,8 +29,7 @@ const Login = () => {
         }
       })
       .catch((err) => {
-        console.log("Oops an error occured! ", err);
-        console.log("Could not reach the server at the moment");
+        console.log("Error while fetching admin profile ", err.message, err);
       });
 
     axios
@@ -44,8 +43,7 @@ const Login = () => {
         }
       })
       .catch((err) => {
-        console.log("Oops an error occured! ", err);
-        console.log("Could not reach the server at the moment");
+        console.log("Error while fetching employee profile ", err.message, err);
       });
   }, []);
 
@@ -66,7 +64,7 @@ const Login = () => {
         }
       })
       .catch((err) => {
-        console.log("Oops an error occurred! ", err);
+        console.log("Error while logging in (employee)", err.message, err);
       });
   };
 
@@ -74,7 +72,7 @@ const Login = () => {
     e.preventDefault();
     axios
       .post(
-        "/admin/login",
+        "/admin/admin_login",
         { username: adminUser, password: adminPwd },
         { withCredentials: true }
       )
@@ -87,7 +85,7 @@ const Login = () => {
         }
       })
       .catch((err) => {
-        console.log("Oops an error occured! ", err);
+        console.log("Error while logging in (admin) ", err.message, err);
       });
   };
 

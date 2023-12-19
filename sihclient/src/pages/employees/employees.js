@@ -7,20 +7,22 @@ import { useNavigate } from "react-router-dom";
 const EmployeeList = () => {
   const navigate = useNavigate();
   const { level, setLevel } = useLevelContext();
-
   const [adminUn, setAdminUn] = useState("Admin");
   const [nCalls, setNCalls] = useState(0);
   const [nEmployees, setNEmployees] = useState(0);
   const [empList, setEmpList] = useState([]);
 
   useEffect(() => {
-    if (level === -1) {
-      // navigate('/login',{replace:true});
-    } else if (level === 1) {
+    //employee, no access to this page
+    if (level === 1) {
       navigate("/dashboard", { replace: true });
-    } else if (level === 0) {
+    }
+
+    //admin
+    else if (level === 0) {
+      //username
       axios
-        .get("/admin/profile", { withCredentials: true })
+        .get("/admin/admin_profile", { withCredentials: true })
         .then((res) => {
           if (res.data.message === "Not logged in") {
             navigate("/login", { replace: true });
@@ -30,8 +32,9 @@ const EmployeeList = () => {
           }
         })
         .catch((err) => {
-          console.log("Oops an error occurred! ", err);
+          console.log("Error fetching admin profile ", err.message, err);
         });
+      //number of calls and employees for sidebar
       axios
         .get("/admin/dashboard", { withCredentials: true })
         .then((res) => {
@@ -43,8 +46,9 @@ const EmployeeList = () => {
           }
         })
         .catch((err) => {
-          console.log("Oops an error occurred! ", err);
+          console.log("Error fetching admin dashboard items ", err.message, err);
         });
+      //employees list
       axios
         .get("/admin/employees", { withCredentials: true })
         .then((res) => {
@@ -57,14 +61,20 @@ const EmployeeList = () => {
               object.name = res.data.employee_ratings[i].employee_name;
               object.nCalls = res.data.employee_ratings[i].num_calls;
               object.rating = res.data.employee_ratings[i].average_rating;
-              employeeArray.append(object);
+              employeeArray.push(object);
             }
             setEmpList(employeeArray);
           }
         })
         .catch((err) => {
-          console.log("Oops an error occurred! ", err.message, err);
+          console.log("Error fetching employee list ", err.message, err);
         });
+    }
+
+    //not logged in or invalid level
+    else {
+      setLevel(0);
+      navigate("/login", { replace: true });
     }
   }, []);
 

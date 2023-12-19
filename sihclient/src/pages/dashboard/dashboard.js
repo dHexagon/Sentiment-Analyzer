@@ -20,30 +20,27 @@ const Dashboard = () => {
   const [nCalls, setNCalls] = useState(-1);
   const [nEmployees, setNEmployees] = useState(-1);
   const [top3, setTop3] = useState([]);
-  const [totalCalls, setTotalCalls]=useState(-1);
+  const [totalCalls, setTotalCalls] = useState(-1);
 
   useEffect(() => {
-    //not logged in
-    if (level === -1) {
-      // navigate('/login',{replace:true});
-    }
-
     //admin
-    else if (level === 0) {
+    if (level === 0) {
+      //username
       axios
-        .get("/admin/profile", { withCredentials: true })
+        .get("/admin/admin_profile", { withCredentials: true })
         .then((res) => {
           if (res.data.message === "Not logged in") {
             navigate("/login", { replace: true });
           } else {
-            setLevel(0);
             setAdminUn(res.data.username);
+            setToPass(res.data.username)
             setEmployeeUn("");
           }
         })
         .catch((err) => {
-          console.log("Oops an error occurred! ", err);
+          console.log("Error fetching admin profile ", err.message, err);
         });
+      //number of calls, number of employees for sidebar and response graph and top 3 employees list
       axios
         .get("/admin/dashboard", { withCredentials: true })
         .then((res) => {
@@ -51,17 +48,17 @@ const Dashboard = () => {
             //won't come here
           } else {
             const array = [
-              res.data[1].Admin_Ratings.average_positive_rating,
-              res.data[1].Admin_Ratings.neutral_rating,
-              res.data[1].Admin_Ratings.negative_rating,
+              res.data[1].Admin_Ratings.average_positive_percent,
+              res.data[1].Admin_Ratings.average_neutral_percent,
+              res.data[1].Admin_Ratings.average_negative_percent,
             ];
             setNCalls(res.data[1].Admin_Ratings.num_calls_today);
             setNEmployees(res.data[1].Admin_Ratings.num_employees);
             setResponseArray(array);
 
-            const top3Array = [];
+            let top3Array = [];
             for (let i = 0; i < res.data[0].top_employees.length; i++) {
-              let object = {
+              const object = {
                 name: null,
                 percent: -1,
                 noCalls: -1,
@@ -72,32 +69,35 @@ const Dashboard = () => {
               object.noCalls = res.data[0].top_employees[i].num_calls;
               object.rating = res.data[0].top_employees[i].average_rating;
 
-              top3Array.append(object);
+              top3Array.push(object);
             }
             setTop3(top3Array);
           }
         })
         .catch((err) => {
-          console.log("Oops an error occurred! ", err);
+          console.log("Error fetching admin dashboard items ", err.message, err);
         });
     }
 
     //employee
     else if (level === 1) {
+      //username
       axios
         .get("/employee/profile", { withCredentials: true })
         .then((res) => {
           if (res.data.message === "Not logged in") {
             navigate("/login", { replace: true });
           } else {
-            setLevel(1);
             setAdminUn(res.data.admin);
             setEmployeeUn(res.data.username);
+            setToPass(res.data.username);
+
           }
         })
         .catch((err) => {
-          console.log("Oops an error occurred! ", err);
+          console.log("Error fetching employee profile ", err.message, err);
         });
+      //response graph
       axios
         .get("/employee/response_graph", { withCredentials: true })
         .then((res) => {
@@ -105,16 +105,17 @@ const Dashboard = () => {
             //won't come here
           } else {
             const newArray = [
-              res.data.positive_percentage,
-              res.data.neutral_percentage,
-              res.data.negative_percentage,
+              res.data.positive_percent,
+              res.data.neutral_percent,
+              res.data.negative_percent,
             ];
             setResponseArray(newArray);
           }
         })
         .catch((err) => {
-          console.log("Oops an error occurred! ", err);
+          console.log("Error fetching response graph (employee) ", err.message, err);
         });
+      //rating
       axios
         .get("/employee/rating", { withCredentials: true })
         .then((res) => {
@@ -125,8 +126,9 @@ const Dashboard = () => {
           }
         })
         .catch((err) => {
-          console.log("Oops an error occurred! ", err);
+          console.log("Error fetching employee rating ", err.message, err);
         });
+      //number of calls and total calls for sidebar
       axios
         .get("/employee/employee_calls", { withCredentials: true })
         .then((res) => {
@@ -138,16 +140,17 @@ const Dashboard = () => {
           }
         })
         .catch((err) => {
-          console.log("Oopns an error occurred! ", err);
+          console.log("Error fetching employee's calling ", err.message, err);
         });
     }
 
-    if (level === 0) {
-      setToPass(adminUn);
-    } else {
-      setToPass(employeeUn);
+    //not logged in, or invalid level
+    else {
+      setLevel(-1);
+      navigate("/login", { replace: true });
     }
-  }, []);
+
+    }, [level]);
 
   return (
     <div>
@@ -159,7 +162,7 @@ const Dashboard = () => {
                 username: toPass,
                 numberCalls: nCalls,
                 numberEmp: nEmployees,
-                totalCalls: totalCalls
+                totalCalls: totalCalls,
               }}
             />
             <div className="flex flex-col w-[100%] h-[100%] justify-around items-center">
