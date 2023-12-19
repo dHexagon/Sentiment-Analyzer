@@ -1,5 +1,5 @@
 const TopThree = ({ details }) => {
-  console.log(details.top3[2]);
+  console.log(details.top3);
   return (
     // 35 of screen, 80 of 80 (h,w)
     <div className="h-full w-full flex justify-around items-center">
@@ -53,7 +53,7 @@ const TopThree = ({ details }) => {
                   {details.top3[0].percent}%
                 </span>
                 <span className="text-base text-white font-lato font-medium">
-                  positive rating in {details.top3[2].noCalls} calls
+                  positive rating in {details.top3[0].noCalls} calls
                 </span>
               </div>
               <div className="flex h-1/4 w-[35%] justify-around">
