@@ -12,3 +12,5 @@ export {default as AdminDashboard} from "./dashboard/adminDashboard";
 export {default as EmployeeDashboard} from "./dashboard/employeeDashboard";
 export {default as Employees} from "./employees/employees";
 export {default as CallHistory} from "./callHistory/callHistory";
+export {default as Details} from "./details/details";
+export {default as Issues} from "./issues/issues";

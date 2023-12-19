@@ -68,10 +68,12 @@ const Frame2 = forwardRef((props, ref) => {
               </div>
             </div>
             <div className="h-20 w-full">
-              dont forget to add button
-              <div className="w-20 h-full border ml-auto mr-2 cursor-pointer" onClick={() => {
+              {/* dont forget to add button */}
+              <div className="w-20 h-full ml-auto mr-2 cursor-pointer" onClick={() => {
                 scrollToBottom()
-              }}></div>
+              }}>
+                <img src="/assets/landing/frame2/arrow.svg"></img>
+              </div>
             </div>
           </div>
         </div>

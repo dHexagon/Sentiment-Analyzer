@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useLevelContext } from "../../utils/context";
 import axios from "axios";
 
-const SideBar = ({ details }) => {
+const SideBar = ({details}) => {
+
   const navigate = useNavigate();
   const [expanded, setExpanded] = useState(true);
   const [selected, setSelected] = useState(-1);

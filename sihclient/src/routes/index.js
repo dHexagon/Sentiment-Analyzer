@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import { Landing, Notfound, Login, Signup, DashBoard, EmployeeList, CallHistoryList } from "../pages";
+import { Landing, Notfound, Login, Signup, DashBoard, EmployeeList, CallHistoryList, CallDetails, IssuePage } from "../pages";
 
 const router = createBrowserRouter([
   { path: "/", element: <Landing /> },
@@ -8,6 +8,8 @@ const router = createBrowserRouter([
   { path: "/dashboard", element: <DashBoard /> },
   { path: "/employees", element: <EmployeeList /> },
   { path: "/history", element: <CallHistoryList /> },
+  { path: "/details", element: <CallDetails /> },
+  { path: "/issues", element: <IssuePage /> },
   { path: "*", element: <Notfound /> },
 ]);
 

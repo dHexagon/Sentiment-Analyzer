@@ -15,11 +15,11 @@ const Header = () => {
 
   return (
     <div className="h-20 flex justify-between absolute w-screen z-[1]">
-      <div className="w-[15vw] flex justify-evenly">
+      <div className="w-[12vw] flex justify-evenly ml-3">
         <div className="w-10 flex flex-col justify-center cursor-pointer">
           <img src="/assets/main/dHexagon.svg" alt="Logo" onClick={homePage} />
         </div>
-        <span className="text-3xl cursor-pointer font-alumniSans font-bold flex flex-col justify-center" onClick={homePage}>
+        <span className="text-4xl cursor-pointer font-alumniSans font-bold flex flex-col justify-center" onClick={homePage}>
           dHexagon
         </span>
       </div>
