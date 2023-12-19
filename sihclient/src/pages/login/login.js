@@ -3,7 +3,6 @@ import Header from "../../components/common/header";
 import { Link, useNavigate } from "react-router-dom";
 import { useLevelContext } from "../../utils/context";
 import axios from "axios";
-const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 const Login = () => {
   const navigate = useNavigate();
@@ -18,22 +17,48 @@ const Login = () => {
   const [adminUser, setAdminUser] = useState("");
   const [adminPwd, setAdminPwd] = useState("");
 
-  console.log(backendUrl + "/employee");
+  useEffect(() => {
+    axios
+      .get("/admin/profile", { withCredentials: true })
+      .then((res) => {
+        if (res.data.message === "Not logged in") {
+          setLevel(-1);
+        } else {
+          setLevel(0);
+          navigate("/dashboard", { replace: true });
+        }
+      })
+      .catch((err) => {
+        console.log("Oops an error occured! ", err);
+        console.log("Could not reach the server at the moment");
+      });
 
-  useEffect(()=>{
-    //add ping request
-  },[])
+    axios
+      .get("/employee/profile", { withCredentials: true })
+      .then((res) => {
+        if (res.data.message === "Not logged in") {
+          setLevel(-1);
+        } else {
+          setLevel(1);
+          navigate("/dashboard", { replace: true });
+        }
+      })
+      .catch((err) => {
+        console.log("Oops an error occured! ", err);
+        console.log("Could not reach the server at the moment");
+      });
+  }, []);
 
   const employeeLogin = (e) => {
     e.preventDefault();
     axios
       .post(
-        backendUrl + "/employee/login",
+        "/employee/login",
         { username: empUser, password: empPwd },
         { withCredentials: true }
       )
       .then((res) => {
-        if (res.message === "Login successfu") {
+        if (res.data.message === "Login successful") {
           setLevel(1);
           navigate("/dashboard", { replace: true });
         } else {
@@ -49,12 +74,12 @@ const Login = () => {
     e.preventDefault();
     axios
       .post(
-        backendUrl + "/admin/login",
+        "/admin/login",
         { username: adminUser, password: adminPwd },
         { withCredentials: true }
       )
       .then((res) => {
-        if (res.message === "Login successful") {
+        if (res.data.message === "Login successful") {
           setLevel(0);
           navigate("/dashboard", { replace: true });
         } else {

@@ -1,13 +1,20 @@
 import { Menu } from "../../utils";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLevelContext } from "../../utils/context";
 
-const SideBar = () => {
+const SideBar = ({details}) => {
   const navigate = useNavigate();
   const [expanded, setExpanded] = useState(true);
   const [selected, setSelected] = useState(-1);
   const { level, setLevel } = useLevelContext()
+  const[nCalls, setNCalls]=useState(0);
+  const[nEmployees, setNEmployees]=useState(0);
+
+  useEffect(()=>{
+    setNCalls(details.numberCalls);
+    setNEmployees(details.numberEmp)
+  },[details.numberCalls, details.numberEmp])
 
   return (
     <div
@@ -50,7 +57,7 @@ const SideBar = () => {
               Calls Today:
             </span>
             <span className="text-4xl font-josefinSans font-semibold mt-2">
-              69
+              {nCalls}
             </span>
           </div>
           <div className="h-[0.0625rem] w-full bg-[#FFCFD4]"></div>
@@ -61,7 +68,7 @@ const SideBar = () => {
                 Employees in:
               </span>
               <span className="text-4xl font-josefinSans font-semibold mt-2">
-                69
+                {nEmployees} 
               </span>
             </div>
           ) : (
@@ -124,7 +131,7 @@ const SideBar = () => {
             className={`w-[80%] ${expanded === true ? "flex" : "hidden"
               } flex-col ml-5 justify-around h-[70%] transition-all duration-200`}
           >
-            <span className="text-xl font-lato font-bold "> UserName </span>
+            <span className="text-xl font-lato font-bold "> {details.username} </span>
             <span className="font-lato text-sm font-normal "> UID </span>
           </div>
         </div>

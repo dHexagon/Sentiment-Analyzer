@@ -1,8 +1,13 @@
 import { PieChart } from 'react-minimal-pie-chart';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-const ResponseGraph = () => {   
+const ResponseGraph = ({details}) => {   
     const [values, setValues]=useState([34,33,33]);
+
+    useEffect(()=>{
+        setValues(details.array);
+
+    },[details.array])
 
     //35 of screen, 40 of 80
     return (   
@@ -14,7 +19,7 @@ const ResponseGraph = () => {
                     data={[
                         { title: 'Positive', value:values[0], color: '#62E000' },
                         { title: 'Neutral', value: values[1], color: '#12C2E8' },
-                        { title: 'Three', value: values[2], color: '#FF3636' },
+                        { title: 'Negative', value: values[2], color: '#FF3636' },
                     ]}
                     lineWidth={8}
                     paddingAngle={8}
