@@ -1,15 +1,17 @@
-import {RouterProvider} from 'react-router-dom';
-import { LevelProvider } from './utils/context';
+import { RouterProvider } from "react-router-dom";
+import { LevelProvider } from "./utils/context";
+import { ToastContainer } from "react-toastify";
 
-import router from './routes';
+import router from "./routes";
 
 function App() {
   return (
-      <>
+    <>
       <LevelProvider>
-        <RouterProvider router={router}/>
+        <RouterProvider router={router} />
+        <ToastContainer />
       </LevelProvider>
-      </>
+    </>
   );
 }
 

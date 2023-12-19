@@ -3,6 +3,9 @@ import Header from "../../components/common/header";
 import { Link, useNavigate } from "react-router-dom";
 import { useLevelContext } from "../../utils/context";
 import axios from "axios";
+import {ToastContainer, toast} from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const Login = () => {
   const navigate = useNavigate();
@@ -57,6 +60,7 @@ const Login = () => {
       )
       .then((res) => {
         if (res.data.message === "Login successful") {
+        toast.success("Login successful")
           setLevel(1);
           navigate("/dashboard", { replace: true });
         } else {
@@ -64,6 +68,7 @@ const Login = () => {
         }
       })
       .catch((err) => {
+        toast.error(err.message)
         console.log("Error while logging in (employee)", err.message, err);
       });
   };

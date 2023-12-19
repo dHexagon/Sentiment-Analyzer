@@ -59,7 +59,7 @@ const TopThree = ({ details }) => {
               <div className="flex h-1/4 w-[35%] justify-around">
                 <div className="text-center">
                   <img src="/assets/dashboard/whiteHeart.svg" alt="" />
-                  <span>{details.top3[0].percent / 10}</span>
+                  <span>{(details.top3[0].percent / 10).toFixed(2)}</span>
                 </div>
                 <div className="text-center">
                   <img src="/assets/dashboard/whiteStar.svg" alt="" />

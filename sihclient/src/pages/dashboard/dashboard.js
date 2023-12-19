@@ -146,8 +146,8 @@ const Dashboard = () => {
 
     //not logged in, or invalid level
     else {
-      setLevel(-1);
-      navigate("/login", { replace: true });
+      setLevel(0);
+      // navigate("/login", { replace: true });
     }
 
     }, [level]);

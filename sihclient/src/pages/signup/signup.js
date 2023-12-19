@@ -3,6 +3,7 @@ import Header from "../../components/common/header";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import {toast} from 'react-toastify'
 
 const Signup = () => {
   const navigate=useNavigate();
@@ -15,10 +16,12 @@ const Signup = () => {
     e.preventDefault();
     axios.post("/admin/admin_signup",{username: userName, password: passWord, organisation: orgName, confirm_pwd: cnfPassWord},{withCredentials:true}).then((res)=>{
       if(res.data.message==="User registered successfully"){
+        toast.success("Registration successful!")
         console.log("Signup successfull!");
         navigate('/login');
       }
     }).catch((err)=>{
+      toast.error(err.message)
       console.log("Error while signing up", err.message, err);
     })
   }
