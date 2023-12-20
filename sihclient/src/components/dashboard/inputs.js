@@ -2,17 +2,33 @@ import { useState, useEffect } from "react";
 import Modal from "@mui/material/Modal";
 import axios from "axios";
 import LoadingOverlay from 'react-loading-overlay';
+import AudioReactRecorder, { RecordState } from "audio-react-recorder";
 
-function blobToBase64(blob) {
-  return new Promise((resolve, _) => {
-    const reader = new FileReader();
-    reader.onloadend = () => resolve(reader.result);
-    reader.readAsDataURL(blob);
+// function blobToBase64(blob) {
+//   if (!(blob instanceof Blob)) {
+//     console.log('Invalid Blob object');
+//   }
+//   return new Promise((resolve, _) => {
+//     const reader = new FileReader();
+//     reader.onloadend = () => resolve(reader.result);
+//     reader.readAsDataURL(blob);
+//   });
+// }
+const blobToBase64 = blob => {
+  console.log(blob.blob instanceof Blob)
+  const reader = new FileReader();
+  reader.readAsDataURL(blob.blob);
+  return new Promise(resolve => {
+    reader.onloadend = () => {
+      resolve(reader.result);
+    };
   });
-}
+};
 
 const Inputs = () => {
   const [mediaStream, setMediaStream] = useState(null);
+  const [blob, setBlob] = useState(null)
+  const [recordState, setRecordState] = useState(RecordState.None)
 
   useEffect(() => {
     // Cleanup function
@@ -89,6 +105,36 @@ const Inputs = () => {
       });
   };
 
+  const uploadAudio = async (audioData) => {
+    console.log(audioData)
+    const data = await blobToBase64(audioData);
+
+    axios
+      .post(
+        "/admin/input/voice",
+        { base64: data },
+      )
+      .then((res) => {
+        console.log("yeahh!");
+        if (res.data.message ==="Audio Converted") {
+          console.log("suuc")
+          axios
+            .post(
+              "/admin/input/voice_upload",
+            )
+            .then((res)=>{
+              if(res.data.message=="Audio Upload Successful"){
+                console.log("heyyyy")
+              }
+            })
+          handleClose2();
+        }
+      })
+      .catch((err) => {
+        console.log("Error while assing employee! ", err.message, err);
+      });
+  };
+
   const addEmployee = (e) => {
     e.preventDefault();
     axios
@@ -108,42 +154,32 @@ const Inputs = () => {
       });
   };
 
-  const startRecording = () => {
-    if (mediaStream) {
-      const mediaRecorder = new MediaRecorder(mediaStream);
-      const chunks = [];
-      mediaRecorder.ondataavailable = (event) => {
-        if (event.data.size > 0) {
-          chunks.push(event.data);
-          console.log("Received audio chunk:", event);
-        }
-      };
-      mediaRecorder.onstop = () => {
-        const audioBlob = new Blob(chunks, { type: "audio/wav" });
-        console.log("Audio Blob:", audioBlob);
-        setAudioChunks([]);
-      };
-      mediaRecorder.start();
-      setRecording(true);
-    }
+  const start = () => {
+    setRecordState(RecordState.START);
+  };
+  const stop = () => {
+    setRecordState(RecordState.STOP);
   };
 
-  const stopRecording = () => {
-    if (mediaStream) {
-      mediaStream.getTracks().forEach((track) => track.stop());
+  useEffect(() => {
+    if (blob) {
+      const file = new File([blob], 'recordedAudio.wav', {
+        type: 'audio/wav',
+        lastModified: Date.now(),
+      });
+      setFile(file);
+      console.log('File updated:', file);
+      uploadFile();
     }
-    handleClose2();
-    setRecording(false);
-  };
+  }, [blob]);
 
   //35 of screen, 40 of 80
   return (
     <div className="h-full w-full flex flex-col items-center">
       <div
         onClick={handleOpen1}
-        className={`flex items-center h-1/2 w-[80%] rounded-xl cursor-pointer ${
-          selected === 0 ? "bg-black text-mainPink" : ""
-        }`}
+        className={`flex items-center h-1/2 w-[80%] rounded-xl cursor-pointer ${selected === 0 ? "bg-black text-mainPink" : ""
+          }`}
         onMouseEnter={() => {
           setSelected(0);
         }}
@@ -158,9 +194,8 @@ const Inputs = () => {
       </div>
       <div
         onClick={handleOpen2}
-        className={`flex items-center h-1/2 w-[80%] rounded-xl cursor-pointer ${
-          selected === 1 ? "bg-black text-mainPink" : ""
-        }`}
+        className={`flex items-center h-1/2 w-[80%] rounded-xl cursor-pointer ${selected === 1 ? "bg-black text-mainPink" : ""
+          }`}
         onMouseEnter={() => {
           setSelected(1);
         }}
@@ -253,19 +288,28 @@ const Inputs = () => {
                 <button onClick={getMicrophoneAccess} disabled={recording}>
                   Get Microphone Access
                 </button>
+                <AudioReactRecorder
+                  canvasWidth={200}
+                  state={recordState}
+                  onStop={(audioData) => {
+                    uploadAudio(audioData)
+                    setRecordState(RecordState.NONE);
+                  }}
+                />
                 <button
-                  onClick={startRecording}
-                  disabled={!mediaStream || recording}
+                  onClick={start}
+                // disabled={!mediaStream || recording}
                 >
                   Start Recording
                 </button>
-                <button onClick={stopRecording} disabled={!recording}>
+                <button onClick={stop}
+                // disabled={!recording}
+                >
                   Stop Recording
                 </button>
                 <div className="text-center">
-                  {`${
-                    !recording ? "Not recording" : "Recording in progress..."
-                  }`}
+                  {`${!recording ? "Not recording" : "Recording in progress..."
+                    }`}
                 </div>
               </div>
             </>

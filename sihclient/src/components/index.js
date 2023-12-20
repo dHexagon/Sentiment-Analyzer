@@ -14,3 +14,5 @@ export {default as Employees} from "./employees/employees";
 export {default as CallHistory} from "./callHistory/callHistory";
 export {default as Details} from "./details/details";
 export {default as Issues} from "./issues/issues";
+export {default as MyLoader} from "./loading/loading";
+
