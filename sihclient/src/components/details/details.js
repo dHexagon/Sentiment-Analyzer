@@ -149,6 +149,8 @@ const Details = ({ id }) => {
 
                 <div className='w-[50%] h-[95%] flex flex-col items-center justify-center '>
                     <div className='bg-[rgba(256,256,256,0.7)] rounded-xl'>
+
+
                         <div className=''>
                             <LineChart
                                 sx={{
@@ -159,6 +161,7 @@ const Details = ({ id }) => {
                                         stroke: '#FE81A2',
                                     },
                                 }}
+
                                 xAxis={[{ data: temp, label: 'Emotion Variations' }]}
                                 series={[
                                     {
@@ -169,6 +172,7 @@ const Details = ({ id }) => {
                                 ]}
                                 width={600}
                                 height={400}
+
                             >
                                 <defs>
                                     <linearGradient id="myGradient" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -182,6 +186,7 @@ const Details = ({ id }) => {
                 </div>
             </div>
         </div >
+
     )
 }
 
