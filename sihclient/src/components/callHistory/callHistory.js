@@ -21,7 +21,7 @@ const CallHistory = ({details}) => {
                             <div className="flex ml-2">
                                 <div className="text-2xl font-semibold">{call.employee}</div>
                                 <div className="border-l-2 mx-2 border-black"></div>
-                                <div className="text-2xl">{call.duration}</div>
+                                <div className="text-2xl">{call.duration.toFixed(2)}sec</div>
                             </div>
                         </div>
                         <div className="flex items-center ml-auto mr-7"> 

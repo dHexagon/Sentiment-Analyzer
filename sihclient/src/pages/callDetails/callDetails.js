@@ -16,72 +16,71 @@ const CallDetails = () => {
     const [totalCalls, setTotalCalls] = useState(-1);
 
     const {id} = useParams()
-    console.log("param", id)
 
-    // useEffect(() => {
-    //     //admin
-    //     if (level === 0) {
-    //         //username
-    //         axios
-    //             .get("/admin/admin_profile", { withCredentials: true })
-    //             .then((res) => {
-    //                 if (res.data.message === "Not logged in") {
-    //                     navigate("/login", { replace: true });
-    //                 } else {
-    //                     setAdminUn(res.data.username);
-    //                     setToPass(res.data.username)
-    //                     setEmployeeUn("");
-    //                 }
-    //             })
-    //             .catch((err) => {
-    //                 console.log("Error fetching admin profile ", err.message, err);
-    //             });
-    //         axios.get("/admin/dashboard", { withCredentials: true }).then((res) => {
-    //             if (res.data.message === "Not logged in") {
-    //                 //wont come here
-    //             } else {
-    //                 setNCalls(res.data[1].Admin_Ratings.num_calls_today);
-    //                 setNEmployees(res.data[1].Admin_Ratings.num_employees);
-    //             }
-    //         }).catch((err) => {
-    //             console.log("Error fetching admin dashboard items ", err.message, err);
-    //         });
-    //     } else if (level === 1) {
-    //         axios.get("/employee/profile", { withCredentials: true }).then((res) => {
-    //             if (res.data.message === "Not logged in") {
-    //                 navigate("/login", { replace: true });
-    //             } else {
-    //                 setAdminUn(res.data.admin);
-    //                 setEmployeeUn(res.data.username);
-    //                 setToPass(res.data.username);
+    useEffect(() => {
+        //admin
+        if (level === 0) {
+            //username
+            axios
+                .get("/admin/admin_profile", { withCredentials: true })
+                .then((res) => {
+                    if (res.data.message === "Not logged in") {
+                        navigate("/login", { replace: true });
+                    } else {
+                        setAdminUn(res.data.username);
+                        setToPass(res.data.username)
+                        setEmployeeUn("");
+                    }
+                })
+                .catch((err) => {
+                    console.log("Error fetching admin profile ", err.message, err);
+                });
+            axios.get("/admin/dashboard", { withCredentials: true }).then((res) => {
+                if (res.data.message === "Not logged in") {
+                    //wont come here
+                } else {
+                    setNCalls(res.data[1].Admin_Ratings.num_calls_today);
+                    setNEmployees(res.data[1].Admin_Ratings.num_employees);
+                }
+            }).catch((err) => {
+                console.log("Error fetching admin dashboard items ", err.message, err);
+            });
+        } else if (level === 1) {
+            axios.get("/employee/profile", { withCredentials: true }).then((res) => {
+                if (res.data.message === "Not logged in") {
+                    navigate("/login", { replace: true });
+                } else {
+                    setAdminUn(res.data.admin);
+                    setEmployeeUn(res.data.username);
+                    setToPass(res.data.username);
 
-    //             }
-    //         }).catch((err) => {
-    //             console.log("Error fetching employee profile ", err.message, err);
-    //         });
-    //         axios
-    //             .get("/employee/employee_calls", { withCredentials: true })
-    //             .then((res) => {
-    //                 if (res.data.message === "Not logged in") {
-    //                     //won't come here
-    //                 } else {
-    //                     setNCalls(res.data.employee_calls_count);
-    //                     setTotalCalls(res.data.employee_total_call_count);
-    //                 }
-    //             })
-    //             .catch((err) => {
-    //                 console.log("Error fetching employee's calling ", err.message, err);
-    //             });
+                }
+            }).catch((err) => {
+                console.log("Error fetching employee profile ", err.message, err);
+            });
+            axios
+                .get("/employee/employee_calls", { withCredentials: true })
+                .then((res) => {
+                    if (res.data.message === "Not logged in") {
+                        //won't come here
+                    } else {
+                        setNCalls(res.data.employee_calls_count);
+                        setTotalCalls(res.data.employee_total_call_count);
+                    }
+                })
+                .catch((err) => {
+                    console.log("Error fetching employee's calling ", err.message, err);
+                });
 
 
-    //     }
+        }
 
-    //     //not logged in, or invalid level
-    //     else {
-    //         setLevel(-1);
-    //         navigate("/login", { replace: true });
-    //     }
-    // }, [level]);
+        //not logged in, or invalid level
+        else {
+            setLevel(-1);
+            navigate("/login", { replace: true });
+        }
+    }, [level]);
 
 
     return (

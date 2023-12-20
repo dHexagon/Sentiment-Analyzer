@@ -3,17 +3,9 @@ import Modal from "@mui/material/Modal";
 import axios from "axios";
 import LoadingOverlay from 'react-loading-overlay';
 import AudioReactRecorder, { RecordState } from "audio-react-recorder";
+import { useNavigate } from "react-router-dom";
+import { useLevelContext } from "../../utils/context";
 
-// function blobToBase64(blob) {
-//   if (!(blob instanceof Blob)) {
-//     console.log('Invalid Blob object');
-//   }
-//   return new Promise((resolve, _) => {
-//     const reader = new FileReader();
-//     reader.onloadend = () => resolve(reader.result);
-//     reader.readAsDataURL(blob);
-//   });
-// }
 const blobToBase64 = blob => {
   console.log(blob.blob instanceof Blob)
   const reader = new FileReader();
@@ -28,10 +20,13 @@ const blobToBase64 = blob => {
 const Inputs = () => {
   const [mediaStream, setMediaStream] = useState(null);
   const [blob, setBlob] = useState(null)
+  const {loading,setLoading} = useLevelContext();
+
   const [recordState, setRecordState] = useState(RecordState.None)
 
+  const navigate = useNavigate()
+
   useEffect(() => {
-    // Cleanup function
     return () => {
       if (mediaStream) {
         mediaStream.getTracks().forEach((track) => track.stop());
@@ -82,6 +77,7 @@ const Inputs = () => {
   };
 
   const uploadFile = () => {
+    setLoading(true)
     const formData = new FormData();
     formData.append("music_file", file, file.name);
     formData.append("username", employeeName);
@@ -97,15 +93,20 @@ const Inputs = () => {
         return response.json();
       })
       .then((data) => {
+        setLoading(false)
+
         console.log(data);
         handleClose2();
       })
       .catch((error) => {
         console.error("There was a problem with the fetch operation:", error);
+        setLoading(false)
+
       });
   };
 
   const uploadAudio = async (audioData) => {
+    setLoading(true)
     console.log(audioData)
     const data = await blobToBase64(audioData);
 
@@ -124,7 +125,8 @@ const Inputs = () => {
             )
             .then((res)=>{
               if(res.data.message=="Audio Upload Successful"){
-                console.log("heyyyy")
+                setLoading(false)
+                navigate(`/details/${res.data.call_id}`)
               }
             })
           handleClose2();
@@ -132,6 +134,8 @@ const Inputs = () => {
       })
       .catch((err) => {
         console.log("Error while assing employee! ", err.message, err);
+        setLoading(false)
+
       });
   };
 
@@ -144,20 +148,24 @@ const Inputs = () => {
         { withCredentials: true }
       )
       .then((res) => {
-        if (res.data.message === "Employee addedd successfully") {
+        if (res.data.message === "Employee added successfully") {
           console.log("Employee addedd successfully!");
           handleClose1();
         }
       })
       .catch((err) => {
         console.log("Error while assing employee! ", err.message, err);
+
       });
   };
 
   const start = () => {
+
+    setRecording(true);
     setRecordState(RecordState.START);
   };
   const stop = () => {
+    setRecording(false);
     setRecordState(RecordState.STOP);
   };
 
@@ -252,9 +260,9 @@ const Inputs = () => {
         <div className="absolute translate-x-[-50%] translate-y-[-50%] w-1/4 min-h-[50%] h-auto left-[50%] top-[50%] bg-white p-7 rounded-md flex flex-col items-center justify-around">
           {uploadType === 0 ? (
             <>
-              <div className="h-full w-full flex flex-col justify-around text-center">
+              <div className="h-full w-full flex flex-col text-center">
                 <div
-                  className="h-32 w-full font-josefinSans text-2xl font-semibold flex flex-col justify-center rounded-2xl border hover:bg-black hover:text-mainPink"
+                  className=" mb-10 h-16 w-full font-josefinSans text-2xl font-semibold flex flex-col justify-center rounded-2xl cursor-pointer bg-mainPink hover:bg-black hover:text-mainPink"
                   onClick={() => {
                     setUploadType(1);
                   }}
@@ -263,7 +271,7 @@ const Inputs = () => {
                 </div>
                 <br />
                 <div
-                  className="h-32 w-full font-josefinSans text-2xl font-semibold flex flex-col justify-center rounded-2xl border hover:bg-black hover:text-mainPink"
+                  className="mb-10 h-16 w-full font-josefinSans text-2xl font-semibold flex flex-col justify-center rounded-2xl cursor-pointer bg-mainPink hover:bg-black hover:text-mainPink"
                   onClick={() => {
                     setUploadType(2);
                   }}
@@ -272,7 +280,7 @@ const Inputs = () => {
                 </div>
                 <br />
                 <div
-                  className="h-32 w-full font-josefinSans text-2xl font-semibold flex flex-col justify-center rounded-2xl border hover:bg-black hover:text-mainPink"
+                  className=" h-16 w-full font-josefinSans text-2xl font-semibold flex flex-col justify-center rounded-2xl cursor-pointer bg-mainPink hover:bg-black hover:text-mainPink"
                   onClick={() => {
                     setUploadType(3);
                   }}
@@ -286,10 +294,12 @@ const Inputs = () => {
             <>
               <div className="h-96 flex flex-col justify-around">
                 <button onClick={getMicrophoneAccess} disabled={recording}>
-                  Get Microphone Access
+                  <div className="underline font-josefinSans text-3xl text-mainPink font-medium">Get Microphone Access</div>
                 </button>
                 <AudioReactRecorder
-                  canvasWidth={200}
+                  className="rounded-xl"
+                  canvasWidth={320}
+                  canvasHeight={100}
                   state={recordState}
                   onStop={(audioData) => {
                     uploadAudio(audioData)
@@ -298,12 +308,10 @@ const Inputs = () => {
                 />
                 <button
                   onClick={start}
-                // disabled={!mediaStream || recording}
                 >
                   Start Recording
                 </button>
                 <button onClick={stop}
-                // disabled={!recording}
                 >
                   Stop Recording
                 </button>
