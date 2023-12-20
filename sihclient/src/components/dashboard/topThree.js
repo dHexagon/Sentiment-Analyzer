@@ -15,16 +15,16 @@ const TopThree = ({ details }) => {
                 </span>
                 <div className="flex flex-col justify-around">
                   <span className="text-4xl font-lato font-bold">
-                    {details.top3[1].percent}%
+                    {details.top3[1].rating}
                   </span>
                   <span className="text-base font-lato font-medium">
-                    positive rating in {details.top3[1].noCalls} calls
+                   stars in {details.top3[1].noCalls} calls
                   </span>
                 </div>
                 <div className="flex h-1/4 w-[35%] justify-around">
                   <div className="text-center">
                     <img src="/assets/dashboard/blackHeart.svg" alt="" />
-                    <span>{details.top3[1].percent / 10}</span>
+                    <span>{(details.top3[1].percent / 10).toFixed(2)}</span>
                   </div>
                   <div className="text-center">
                     <img src="/assets/dashboard/blackStar.svg" alt="" />
@@ -50,10 +50,10 @@ const TopThree = ({ details }) => {
               </span>
               <div className="flex flex-col justify-around">
                 <span className="text-7xl text-white font-lato font-bold">
-                  {details.top3[0].percent}%
+                  {details.top3[0].rating}
                 </span>
-                <span className="text-base text-white font-lato font-medium">
-                  positive rating in {details.top3[0].noCalls} calls
+                <span className=" text-white text-2xl font-lato font-medium">
+                  stars in {details.top3[0].noCalls} calls
                 </span>
               </div>
               <div className="flex h-1/4 w-[35%] justify-around">
@@ -83,16 +83,16 @@ const TopThree = ({ details }) => {
                 </span>
                 <div className="flex flex-col justify-around">
                   <span className="text-4xl font-lato font-bold">
-                    {details.top3[2].percent}%
+                    {details.top3[2].rating}
                   </span>
                   <span className="text-base font-lato font-medium">
-                    positive rating in {details.top3[2].noCalls} calls
+                    stars in {details.top3[2].noCalls} calls
                   </span>
                 </div>
                 <div className="flex h-1/4 w-[35%] justify-around">
                   <div className="text-center">
                     <img src="/assets/dashboard/blackHeart.svg" alt="" />
-                    <span>{details.top3[2].percent / 10}</span>
+                    <span>{(details.top3[2].percent / 10).toFixed(2)}</span>
                   </div>
                   <div className="text-center">
                     <img src="/assets/dashboard/blackStar.svg" alt="" />

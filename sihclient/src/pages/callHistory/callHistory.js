@@ -54,10 +54,12 @@ const CallHistoryList = () => {
         .then((res) => {
           const callArray = [];
           for (let i = 0; i < res.data.all_calls.length; i++) {
-            const object = { employee: "", duration: "", rating: "" };
+            const object = { id:"",employee: "", duration: "", rating: "" };
+            object.id=res.data.all_calls[i]._id;
             object.employee = res.data.all_calls[i].employeename;
             object.duration = res.data.all_calls[i].duration;
             object.rating = res.data.all_calls[i].rating;
+            console.log(object.id)
             callArray.push(object);
           }
           setCallList(callArray);
@@ -95,7 +97,8 @@ const CallHistoryList = () => {
             setNCalls(res.data.employee_calls_count);
             const callArray = [];
             for (let i = 0; i < res.data.employee_calls.length; i++) {
-              const object = { employee: "", duration: "", rating: "" };
+              const object = { id:"", employee: "", duration: "", rating: "" };
+              object.id=res.data.all_calls[i]._id;
               object.employee = res.data.employee_calls[i].employeename;
               object.duration = res.data.employee_calls[i].duration;
               object.rating = res.data.employee_calls[i].rating;

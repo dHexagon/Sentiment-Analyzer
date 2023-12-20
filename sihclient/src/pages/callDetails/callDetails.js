@@ -1,7 +1,7 @@
 import { Details, SideBar, HeaderMenu } from "../../components"
 import { useEffect, useState } from "react";
 import { useLevelContext } from "../../utils/context";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 const CallDetails = () => {
@@ -15,6 +15,8 @@ const CallDetails = () => {
     const [nEmployees, setNEmployees] = useState(-1);
     const [totalCalls, setTotalCalls] = useState(-1);
 
+
+    const {id} = useParams()
     useEffect(() => {
         //admin
         if (level === 0) {
@@ -95,7 +97,9 @@ const CallDetails = () => {
                     />
                     <div className="flex flex-col w-[100%] h-[100%] justify-around items-center">
                         <HeaderMenu />
-                        <Details />
+
+                        <Details id={id}/>
+
                     </div>
                 </div>
             </div>

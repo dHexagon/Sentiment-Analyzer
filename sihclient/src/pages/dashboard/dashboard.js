@@ -6,12 +6,14 @@ import {
   HeaderMenu,
   AdminDashboard,
   EmployeeDashboard,
+  MyLoader
 } from "../../components";
 import { useLevelContext } from "../../utils/context";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const { level, setLevel } = useLevelContext();
+  const {loading,setLoading} = useLevelContext();
   const [adminUn, setAdminUn] = useState("Admin");
   const [employeeUn, setEmployeeUn] = useState("Employee");
   const [toPass, setToPass] = useState("username");
@@ -153,6 +155,7 @@ const Dashboard = () => {
     }, [level]);
 
   return (
+    <MyLoader active={loading} >
     <div>
       <div className="flex h-screen w-screen justify-around items-center bg-[url('../public/assets/landing/frame2/frame2Bg.webp')]  bg-repeat overflow-x-hidden ">
         <div className="bg-white/[0.90] min-h-screen h-full w-full">
@@ -198,6 +201,7 @@ const Dashboard = () => {
         </div>
       </div>
     </div>
+    </MyLoader>
   );
 };
 

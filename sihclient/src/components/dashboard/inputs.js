@@ -2,20 +2,31 @@ import { useState, useEffect } from "react";
 import Modal from "@mui/material/Modal";
 import axios from "axios";
 import LoadingOverlay from 'react-loading-overlay';
+import AudioReactRecorder, { RecordState } from "audio-react-recorder";
+import { useNavigate } from "react-router-dom";
+import { useLevelContext } from "../../utils/context";
 
-function blobToBase64(blob) {
-  return new Promise((resolve, _) => {
-    const reader = new FileReader();
-    reader.onloadend = () => resolve(reader.result);
-    reader.readAsDataURL(blob);
+const blobToBase64 = blob => {
+  console.log(blob.blob instanceof Blob)
+  const reader = new FileReader();
+  reader.readAsDataURL(blob.blob);
+  return new Promise(resolve => {
+    reader.onloadend = () => {
+      resolve(reader.result);
+    };
   });
-}
+};
 
 const Inputs = () => {
   const [mediaStream, setMediaStream] = useState(null);
+  const [blob, setBlob] = useState(null)
+  const {loading,setLoading} = useLevelContext();
+
+  const [recordState, setRecordState] = useState(RecordState.None)
+
+  const navigate = useNavigate()
 
   useEffect(() => {
-    // Cleanup function
     return () => {
       if (mediaStream) {
         mediaStream.getTracks().forEach((track) => track.stop());
@@ -66,6 +77,7 @@ const Inputs = () => {
   };
 
   const uploadFile = () => {
+    setLoading(true)
     const formData = new FormData();
     formData.append("music_file", file, file.name);
     formData.append("username", employeeName);
@@ -81,11 +93,49 @@ const Inputs = () => {
         return response.json();
       })
       .then((data) => {
+        setLoading(false)
+
         console.log(data);
         handleClose2();
       })
       .catch((error) => {
         console.error("There was a problem with the fetch operation:", error);
+        setLoading(false)
+
+      });
+  };
+
+  const uploadAudio = async (audioData) => {
+    setLoading(true)
+    console.log(audioData)
+    const data = await blobToBase64(audioData);
+
+    axios
+      .post(
+        "/admin/input/voice",
+        { base64: data },
+      )
+      .then((res) => {
+        console.log("yeahh!");
+        if (res.data.message ==="Audio Converted") {
+          console.log("suuc")
+          axios
+            .post(
+              "/admin/input/voice_upload",
+            )
+            .then((res)=>{
+              if(res.data.message=="Audio Upload Successful"){
+                setLoading(false)
+                navigate(`/details/${res.data.call_id}`)
+              }
+            })
+          handleClose2();
+        }
+      })
+      .catch((err) => {
+        console.log("Error while assing employee! ", err.message, err);
+        setLoading(false)
+
       });
   };
 
@@ -98,52 +148,46 @@ const Inputs = () => {
         { withCredentials: true }
       )
       .then((res) => {
-        if (res.data.message === "Employee addedd successfully") {
+        if (res.data.message === "Employee added successfully") {
           console.log("Employee addedd successfully!");
           handleClose1();
         }
       })
       .catch((err) => {
         console.log("Error while assing employee! ", err.message, err);
+
       });
   };
 
-  const startRecording = () => {
-    if (mediaStream) {
-      const mediaRecorder = new MediaRecorder(mediaStream);
-      const chunks = [];
-      mediaRecorder.ondataavailable = (event) => {
-        if (event.data.size > 0) {
-          chunks.push(event.data);
-          console.log("Received audio chunk:", event);
-        }
-      };
-      mediaRecorder.onstop = () => {
-        const audioBlob = new Blob(chunks, { type: "audio/wav" });
-        console.log("Audio Blob:", audioBlob);
-        setAudioChunks([]);
-      };
-      mediaRecorder.start();
-      setRecording(true);
-    }
+  const start = () => {
+
+    setRecording(true);
+    setRecordState(RecordState.START);
+  };
+  const stop = () => {
+    setRecording(false);
+    setRecordState(RecordState.STOP);
   };
 
-  const stopRecording = () => {
-    if (mediaStream) {
-      mediaStream.getTracks().forEach((track) => track.stop());
+  useEffect(() => {
+    if (blob) {
+      const file = new File([blob], 'recordedAudio.wav', {
+        type: 'audio/wav',
+        lastModified: Date.now(),
+      });
+      setFile(file);
+      console.log('File updated:', file);
+      uploadFile();
     }
-    handleClose2();
-    setRecording(false);
-  };
+  }, [blob]);
 
   //35 of screen, 40 of 80
   return (
     <div className="h-full w-full flex flex-col items-center">
       <div
         onClick={handleOpen1}
-        className={`flex items-center h-1/2 w-[80%] rounded-xl cursor-pointer ${
-          selected === 0 ? "bg-black text-mainPink" : ""
-        }`}
+        className={`flex items-center h-1/2 w-[80%] rounded-xl cursor-pointer ${selected === 0 ? "bg-black text-mainPink" : ""
+          }`}
         onMouseEnter={() => {
           setSelected(0);
         }}
@@ -158,9 +202,8 @@ const Inputs = () => {
       </div>
       <div
         onClick={handleOpen2}
-        className={`flex items-center h-1/2 w-[80%] rounded-xl cursor-pointer ${
-          selected === 1 ? "bg-black text-mainPink" : ""
-        }`}
+        className={`flex items-center h-1/2 w-[80%] rounded-xl cursor-pointer ${selected === 1 ? "bg-black text-mainPink" : ""
+          }`}
         onMouseEnter={() => {
           setSelected(1);
         }}
@@ -217,9 +260,9 @@ const Inputs = () => {
         <div className="absolute translate-x-[-50%] translate-y-[-50%] w-1/4 min-h-[50%] h-auto left-[50%] top-[50%] bg-white p-7 rounded-md flex flex-col items-center justify-around">
           {uploadType === 0 ? (
             <>
-              <div className="h-full w-full flex flex-col justify-around text-center">
+              <div className="h-full w-full flex flex-col text-center">
                 <div
-                  className="h-32 w-full font-josefinSans text-2xl font-semibold flex flex-col justify-center rounded-2xl border hover:bg-black hover:text-mainPink"
+                  className=" mb-10 h-16 w-full font-josefinSans text-2xl font-semibold flex flex-col justify-center rounded-2xl cursor-pointer bg-mainPink hover:bg-black hover:text-mainPink"
                   onClick={() => {
                     setUploadType(1);
                   }}
@@ -228,7 +271,7 @@ const Inputs = () => {
                 </div>
                 <br />
                 <div
-                  className="h-32 w-full font-josefinSans text-2xl font-semibold flex flex-col justify-center rounded-2xl border hover:bg-black hover:text-mainPink"
+                  className="mb-10 h-16 w-full font-josefinSans text-2xl font-semibold flex flex-col justify-center rounded-2xl cursor-pointer bg-mainPink hover:bg-black hover:text-mainPink"
                   onClick={() => {
                     setUploadType(2);
                   }}
@@ -237,7 +280,7 @@ const Inputs = () => {
                 </div>
                 <br />
                 <div
-                  className="h-32 w-full font-josefinSans text-2xl font-semibold flex flex-col justify-center rounded-2xl border hover:bg-black hover:text-mainPink"
+                  className=" h-16 w-full font-josefinSans text-2xl font-semibold flex flex-col justify-center rounded-2xl cursor-pointer bg-mainPink hover:bg-black hover:text-mainPink"
                   onClick={() => {
                     setUploadType(3);
                   }}
@@ -251,21 +294,30 @@ const Inputs = () => {
             <>
               <div className="h-96 flex flex-col justify-around">
                 <button onClick={getMicrophoneAccess} disabled={recording}>
-                  Get Microphone Access
+                  <div className="underline font-josefinSans text-3xl text-mainPink font-medium">Get Microphone Access</div>
                 </button>
+                <AudioReactRecorder
+                  className="rounded-xl"
+                  canvasWidth={320}
+                  canvasHeight={100}
+                  state={recordState}
+                  onStop={(audioData) => {
+                    uploadAudio(audioData)
+                    setRecordState(RecordState.NONE);
+                  }}
+                />
                 <button
-                  onClick={startRecording}
-                  disabled={!mediaStream || recording}
+                  onClick={start}
                 >
                   Start Recording
                 </button>
-                <button onClick={stopRecording} disabled={!recording}>
+                <button onClick={stop}
+                >
                   Stop Recording
                 </button>
                 <div className="text-center">
-                  {`${
-                    !recording ? "Not recording" : "Recording in progress..."
-                  }`}
+                  {`${!recording ? "Not recording" : "Recording in progress..."
+                    }`}
                 </div>
               </div>
             </>

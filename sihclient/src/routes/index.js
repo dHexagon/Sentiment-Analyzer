@@ -8,7 +8,9 @@ const router = createBrowserRouter([
   { path: "/dashboard", element: <DashBoard /> },
   { path: "/employees", element: <EmployeeList /> },
   { path: "/history", element: <CallHistoryList /> },
-  { path: "/details", element: <CallDetails /> },
+
+  { path: "/details/:id", element: <CallDetails /> },
+
   { path: "/issues", element: <IssuePage /> },
   { path: "*", element: <Notfound /> },
 ]);
