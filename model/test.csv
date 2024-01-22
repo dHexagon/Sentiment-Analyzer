@@ -1,0 +1,74 @@
+Text,Label
+Wassup? Any goals?,spam
+Hi! How's your pet?,spam
+Hey there! How's study?,spam
+Hello! How's the job?,spam
+Wassup? Any hobbies?,spam
+Hi! How's your day?,spam
+Hey there! Any food cravings?,spam
+Hello! How's the book?,spam
+Wassup? Any songs on repeat?,spam
+Hi! How's your mood?,spam
+Hey there! How's the coffee?,spam
+Hello! Any plans ahead?,spam
+Wassup? How's your car?,spam
+Hi! How's your garden?,spam
+"Hi, I'm having trouble with my billing statement. Can you help me understand the charges?",not spam
+"I recently purchased a product, and there seems to be an issue with the delivery. Can you assist me?",not spam
+I need to update my contact information. Could you guide me on how to do that in my account?,not spam
+"I appreciate the prompt delivery, but I received the wrong item. Can we arrange for an exchange?",not spam
+I'm having technical issues with your app. It's not letting me log in. Any suggestions to fix this?,not spam
+I'd like to inquire about the new services you introduced. Can you provide more information?,not spam
+"I'm impressed with your service, but I have a suggestion for improvement. Is there a feedback process?",not spam
+I lost my password and can't access my account. How can I reset it securely?,not spam
+I have a question about my recent order. When can I expect it to be shipped?,not spam
+Your support team has been fantastic. Just wanted to express my gratitude for resolving my issue.,not spam
+I'm experiencing issues with my internet connection. Can you check if there's an outage in my area?,not spam
+I have a question about the warranty on the product I purchased. Could you provide more details?,not spam
+I accidentally made a duplicate payment on my account. How can I get a refund for the extra charge?,not spam
+The quality of your service has been exceptional. I wanted to give positive feedback to your team.,not spam
+I'm interested in upgrading my subscription. What additional features come with the premium plan?,not spam
+I received a damaged item in my order. Can you guide me on the return and replacement process?,not spam
+I'm having difficulty navigating your website. Is there a step-by-step guide or tutorial available?,not spam
+I'd like to discuss a possible billing error on my last invoice. Can we review the charges together?,not spam
+Your automated phone system is confusing. Is there a quicker way to reach a live agent for assistance?,not spam
+I appreciate the quick response to my support ticket. Is there anything else I need to do to resolve the issue?,not spam
+I'm having trouble accessing my account online. Can you assist with resetting my password?,not spam
+Thank you for resolving my issue so quickly. Your team's efficiency is truly commendable.,not spam
+Wassup? How's work?,spam
+Hey! Ready for the weekend?,spam
+Hi there! What's up?,spam
+Hello! How's the family?,spam
+Wassup? Any news?,spam
+Hi! How's your week?,spam
+Hey there! Feeling good?,spam
+Hello! How's the weather?,spam
+Wassup? How's it going?,spam
+Hi! Seen any movies?,spam
+Hey there! Any gossip?,spam
+Hello! How's your health?,spam
+Wassup? Got plans?,spam
+Hi! What's cooking?,spam
+Hey there! How's work?,spam
+Hello! Any trips planned?,spam
+I need information about your loyalty program. What are the benefits and how do I enroll?,not spam
+The product I ordered arrived earlier than expected. I'm impressed with your delivery service.,not spam
+I accidentally canceled my subscription. Can you help me reinstate it with the same plan?,not spam
+I have a suggestion for improving your website's user interface. Where can I provide feedback?,not spam
+"I received exceptional service from your representative, and I wanted to share my positive experience.",not spam
+I'm having difficulty understanding a charge on my credit card statement. Can you explain it?,not spam
+Can you provide an update on the status of my recent support ticket? It's been a few days.,not spam
+I appreciate your detailed response to my email query. It was very helpful and informative.,not spam
+I'm interested in exploring your product features. Where can I find more detailed information?,not spam
+The customer service agent I spoke to was incredibly patient and helpful. Kudos to your team!,not spam
+I'm having difficulty applying a discount code during checkout. Can you guide me through the process?,not spam
+Your website's chat support was quick to respond. Do you have 24/7 customer service available?,not spam
+I have a question about the terms of service. Is there a document I can refer to for more details?,not spam
+I'm considering upgrading my plan. Can you outline the differences between the available options?,not spam
+I received a notification about an upcoming maintenance window. Can you provide more details?,not spam
+I accidentally unsubscribed from your newsletter. How can I resubscribe to stay updated?,not spam
+I want to express my gratitude for the personalized assistance I received. Your team is fantastic!,not spam
+I'm experiencing a bug in your mobile app. Where can I report this issue for troubleshooting?,not spam
+I'm impressed with the efficiency of your online order tracking system. It's user-friendly and informative.,not spam
+I have a complex issue that needs further investigation. Can you escalate my support ticket?,not spam
+"Your online knowledge base has been helpful, but I have a specific question. Can you assist me directly?",not spam
