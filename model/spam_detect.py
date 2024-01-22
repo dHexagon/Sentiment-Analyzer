@@ -3,13 +3,13 @@ import tensorflow as tf
 from transformers import BertTokenizer, TFBertForSequenceClassification
 from sklearn.preprocessing import LabelEncoder
 
-train_file_path = '/Users/akshayv/Desktop/train.csv'
+train_file_path = 'spam_train.csv'
 train_df = pd.read_csv(train_file_path)
 
 train_texts = train_df['Text'][:].tolist()
 train_labels = train_df['Label'][:].tolist()
 
-test_file_path = '/Users/akshayv/Desktop/test.csv'
+test_file_path = '/spam_test.csv'
 test_df = pd.read_csv(test_file_path)
 
 test_texts = test_df['Text'][:].tolist()
