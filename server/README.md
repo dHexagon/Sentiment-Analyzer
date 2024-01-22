@@ -35,7 +35,7 @@ If you want to make changes to the ML Model (and want your changes to be reflect
 1. Fork and Clone the remote ML repository
 Link:
 ```
-https://github.com/codx-aks/sentimentAnalysis
+https://github.com/dHexagon/Sentiment-Analyzer
 ```
 2. Switch to dwoc24 and delete the .gitmodules file
 ```
