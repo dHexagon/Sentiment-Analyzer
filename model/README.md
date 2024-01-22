@@ -39,4 +39,9 @@ pip install transformers
 2.2.2. Code to create the issue classify dataset - issues_classify_dataset_creator.py
 2.2.3. Created Dataset for issue classify - issue_dataset.csv
 
-2.3. Run the given test files to test your trained model with custom prediction.
+2.3.1 Code for spam detection model - spam_detect.py
+2.3.2 Datasets for spam detection model , Training dataset - train.csv ,Testing dataset - test.csv
+
+2.4. Run the given test files to test your trained model with custom prediction.
+
+
