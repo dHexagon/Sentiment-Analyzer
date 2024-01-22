@@ -30,6 +30,7 @@ if not sys.warnoptions:
     warnings.simplefilter("ignore")
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
+# download the required datasets and modify the below mentioned paths to the path of the downloaded dataset
 Ravdess = "/Users/akshayv/Desktop/MLdata/ravdess"
 Crema ="/Users/akshayv/Desktop/MLdata/crema"
 Tess = "/Users/akshayv/Desktop/MLdata/tess/TESS Toronto emotional speech set data"
